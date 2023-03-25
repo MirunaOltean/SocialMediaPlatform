@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using Microsoft.EntityFrameworkCore;
+using SocialMediaPlatform.Models;
 
-namespace SocialMediaPlatform.Models;
+namespace SocialMediaPlatform.DBContext;
 
 public partial class SocialMediaPlatformContext : DbContext
 {

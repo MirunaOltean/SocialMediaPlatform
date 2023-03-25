@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace SocialMediaPlatform.Models;
 
 public partial class User

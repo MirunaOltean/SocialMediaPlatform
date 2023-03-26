@@ -6,12 +6,12 @@ using SocialMediaPlatform.Services;
 namespace SocialMediaPlatform.Controllers
 {
     [ApiController]
-    [Route("api/posts")]
+    [Route("[controller]")]
     public class PostController : ControllerBase
     {
-        private readonly PostService _postService;
+        private readonly IPostService _postService;
 
-        public PostController(PostService postService)
+        public PostController(IPostService postService)
         {
             _postService = postService;
         }
@@ -29,7 +29,7 @@ namespace SocialMediaPlatform.Controllers
             return Ok(await _postService.Get(id));
         }
 
-        [HttpGet("/comments/{id}")]
+        [HttpGet("comments/{id}")]
         public async Task<IActionResult> GetCommentsByPostId(int id)
         {
             return Ok(await _postService.GetAllCommentsForPost(id));
@@ -53,7 +53,7 @@ namespace SocialMediaPlatform.Controllers
         public async Task<IActionResult> DeletePost(int id)
         {
             await _postService.Delete(id);
-            return Ok(await _postService.GetAll());
+            return Ok("Post deleted!");
         }
     }
 }

@@ -7,9 +7,9 @@ namespace SocialMediaPlatform.Services
 {
     public class CommentService : ICommentService
     {
-        private readonly CommentRepository _commentRepository;
+        private readonly ICommentRepository _commentRepository;
 
-        public CommentService(CommentRepository commentRepository)
+        public CommentService(ICommentRepository commentRepository)
         {
             _commentRepository = commentRepository;
         }
@@ -29,9 +29,9 @@ namespace SocialMediaPlatform.Services
             Comment comment = new()
             {
                 Content = model.Content,
-                AuthorId = model.Author.Id,
-                PostId = model.Post.Id,
-                TimeStamp = model.TimeStamp
+                AuthorId = model.AuthorId,
+                PostId = model.PostId,
+                TimeStamp = DateOnly.FromDateTime(model.TimeStamp)
             };
             await _commentRepository.AddComment(comment);
             return true;

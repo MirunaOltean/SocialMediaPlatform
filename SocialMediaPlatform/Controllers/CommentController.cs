@@ -6,12 +6,12 @@ using SocialMediaPlatform.Services;
 namespace SocialMediaPlatform.Controllers
 {
     [ApiController]
-    [Route("api/comments")]
+    [Route("[controller]")]
     public class CommentController : ControllerBase
     {
-        private readonly CommentService _commentService;
+        private readonly ICommentService _commentService;
 
-        public CommentController(CommentService commentService)
+        public CommentController(ICommentService commentService)
         {
             _commentService = commentService;
         }
@@ -24,9 +24,9 @@ namespace SocialMediaPlatform.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetCommentById(int commentId)
+        public async Task<ActionResult> GetCommentById(int id)
         {
-            var result = await _commentService.Get(commentId);
+            var result = await _commentService.Get(id);
 
             if (result == null)
             {

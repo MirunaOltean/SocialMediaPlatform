@@ -17,9 +17,9 @@ namespace SocialMediaPlatform.Mappings
 
             return new PostDTO
             {
-                TimeStamp = post.TimeStamp,
+                TimeStamp = post.TimeStamp.ToDateTime(TimeOnly.MinValue),
                 Content = post.Content,
-                Author = post.Author
+                AuthorId = post.AuthorId
             };
         }
     }

@@ -27,7 +27,7 @@ public partial class SocialMediaPlatformContext : DbContext
         {
             entity.ToTable("Comment");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Content).HasMaxLength(1000);
 
             entity.HasOne(d => d.Author).WithMany(p => p.Comments)
@@ -45,7 +45,7 @@ public partial class SocialMediaPlatformContext : DbContext
         {
             entity.ToTable("Post");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Content).HasMaxLength(1000);
 
             entity.HasOne(d => d.Author).WithMany(p => p.Posts)
@@ -58,7 +58,7 @@ public partial class SocialMediaPlatformContext : DbContext
         {
             entity.ToTable("User");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);

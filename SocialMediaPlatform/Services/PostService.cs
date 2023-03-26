@@ -7,9 +7,9 @@ namespace SocialMediaPlatform.Services
 {
     public class PostService : IPostService
     {
-        private readonly PostRepository _postRepository;
+        private readonly IPostRepository _postRepository;
 
-        public PostService(PostRepository postRepository)
+        public PostService(IPostRepository postRepository)
         {
             _postRepository = postRepository;
         }
@@ -20,8 +20,8 @@ namespace SocialMediaPlatform.Services
             Post post = new()
             {
                 Content = model.Content,
-                AuthorId = model.Author.Id,
-                TimeStamp = model.TimeStamp
+                AuthorId = model.AuthorId,
+                TimeStamp = DateOnly.FromDateTime(model.TimeStamp)
             };
             await _postRepository.AddPost(post);
             return true;

@@ -7,9 +7,9 @@ namespace SocialMediaPlatform.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(UserRepository userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -69,8 +69,8 @@ namespace SocialMediaPlatform.Services
                 return false;
             }
 
-            user.FirstName = model.FullName.Split(' ')[0];
-            user.LastName = model.FullName.Split(' ')[1];
+            user.FirstName = model.FullName.Split(' ').First();
+            user.LastName = model.FullName.Split(' ').Last();
             user.Password = model.Password;
             user.Email = model.Email;
             await _userRepository.UpdateUser(user);

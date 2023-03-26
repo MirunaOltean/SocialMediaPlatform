@@ -6,12 +6,12 @@ using SocialMediaPlatform.Services;
 namespace SocialMediaPlatform.Controllers
 {
     [ApiController]
-    [Route("api/users")]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public UserController(UserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }
@@ -29,29 +29,43 @@ namespace SocialMediaPlatform.Controllers
             return Ok(await _userService.Get(id));
         }
 
-        [HttpGet("/comments/{id}")]
+        [HttpGet("comments/{id}")]
         public async Task<IActionResult> GetCommentsByUserId(int id)
         {
             return Ok(await _userService.GetAllCommentsForUser(id));
         }
 
-        [HttpGet("/posts/{id}")]
+        [HttpGet("posts/{id}")]
         public async Task<IActionResult> GetPostsByUserId(int id)
         {
             return Ok(await _userService.GetAllPostsForUser(id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] UserDTO user)
+        public async Task<IActionResult> AddUser([FromBody] CreateUserDTO user)
         {
-            await _userService.Create(user);
+            UserDTO userDto = new()
+            {
+                FullName = user.FullName,
+                Email = user.Email,
+                Password = user.Password,
+                Comments = new(),
+                Posts = new()
+            };
+            await _userService.Create(userDto);
             return Ok(await _userService.GetAll());
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO user)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] CreateUserDTO user)
         {
-            await _userService.Update(id, user);
+            UserDTO userDto = new()
+            {
+                FullName = user.FullName,
+                Email = user.Email,
+                Password = user.Password
+            };
+            await _userService.Update(id, userDto);
             return Ok(await _userService.Get(id));
         }
 
@@ -59,7 +73,7 @@ namespace SocialMediaPlatform.Controllers
         public async Task<IActionResult> DeleteUser(int id)
         {
             await _userService.Delete(id);
-            return Ok(await _userService.GetAll());
+            return Ok("User deleted!");
         }
     }
 }

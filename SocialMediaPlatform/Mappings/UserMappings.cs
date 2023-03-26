@@ -18,6 +18,8 @@ namespace SocialMediaPlatform.Mappings
             return new UserDTO
             {
                 FullName = user.FirstName + " " + user.LastName,
+                Email = user.Email,
+                Password = user.Password,
                 Comments = user.Comments.ToList(),
                 Posts = user.Posts.ToList()
             };

@@ -9,7 +9,6 @@ namespace SocialMediaPlatform.Settings
     {
         public static void Inject(WebApplicationBuilder applicationBuilder)
         {
-            applicationBuilder.Services.AddEndpointsApiExplorer();
             applicationBuilder.Services.AddControllers();
             applicationBuilder.Services.AddSwaggerGen();
             
@@ -24,17 +23,17 @@ namespace SocialMediaPlatform.Settings
 
         private static void AddServices(IServiceCollection services)
         {
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<ICommentService, CommentService>();
-            services.AddSingleton<IPostService, PostService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IPostService, PostService>();
 
         }
 
         private static void AddRepositories(IServiceCollection services)
         {
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<ICommentRepository, CommentRepository>();
-            services.AddSingleton<IPostRepository, PostRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<IPostRepository, PostRepository>();
         }
     }
 }

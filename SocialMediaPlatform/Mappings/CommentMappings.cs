@@ -17,10 +17,10 @@ namespace SocialMediaPlatform.Mappings
 
             return new CommentDTO
             {
-                TimeStamp = comment.TimeStamp,
+                TimeStamp = comment.TimeStamp.ToDateTime(TimeOnly.MinValue),
                 Content = comment.Content,
-                Author = comment.Author,
-                Post = comment.Post
+                AuthorId = comment.AuthorId,
+                PostId = comment.PostId
             };
         }
     }
